@@ -1,7 +1,7 @@
 {
 	"name" : "richardfan1126/yii2-sortable-gridview",
 	"description" : "Sortable GridView for Yii2",
-	"type" : "library",
+	"type" : "yii2-extension",
 	"license" : "MIT",
 	"authors" : [{
 			"name" : "Richard Fan",
@@ -20,8 +20,12 @@
 		}
 	},
 	"keywords" : [
-		"Yii2",
-		"GridView",
-		"Widget"
-	]
+		"yii2",
+		"extension",
+		"widget",
+		"gridview"
+	],
+	"require": {
+	   "yiisoft/yii2": "*"
+	}
 }
