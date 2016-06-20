@@ -1,6 +1,6 @@
 <?php
 
-namespace richardfan1126\sortable;
+namespace richardfan\sortable;
 
 use yii\base\Action;
 use yii\web\HttpException;

@@ -1,13 +1,11 @@
 <?php
 
-namespace richardfan1126\sortable;
+namespace richardfan\sortable;
 
 use yii\base\InvalidConfigException;
 use yii\grid\GridView;
 use yii\helpers\Json;
 use yii\grid\GridViewAsset;
-
-use app\components\sortable\SortableGridViewAsset;
 
 class SortableGridView extends GridView {
     /**

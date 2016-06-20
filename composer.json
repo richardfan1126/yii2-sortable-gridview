@@ -16,7 +16,7 @@
 	},
 	"autoload" : {
 		"psr-4" : {
-			"\\richardfan\\yii2-sortable-gridview" : ""
+			"richardfan\\sortable\\" : ""
 		}
 	},
 	"keywords" : [
@@ -25,7 +25,7 @@
 		"widget",
 		"gridview"
 	],
-	"require": {
-	   "yiisoft/yii2": "*"
+	"require" : {
+		"yiisoft/yii2" : "*"
 	}
 }
