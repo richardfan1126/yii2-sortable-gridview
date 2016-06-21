@@ -7,11 +7,16 @@ This extension render a sortable GridView which you can drag and drop the record
 ### Installing
 Install with Composer:
 
-    composer require richardfan1126/yii2-sortable-gridview
+    composer require richardfan1126/yii2-sortable-gridview "*"
 
 or
 
-    php composer.phar require richardfan1126/yii2-sortable-gridview
+    php composer.phar require richardfan1126/yii2-sortable-gridview "*"
+
+or add
+
+    "richardfan1126/yii2-sortable-gridview":"*"
+to the require section of your composer.json file.
 
 ### Setting up SortableAction
 In your controller, add the SortableAction into action():
@@ -54,3 +59,51 @@ You can do it by calling below before passing data provider into SortableGridVie
 ```php
 $dataProvider->pagination = false;
 ```
+## Configurations
+### SortableAction
+example:
+```php
+use richardfan\sortable\SortableAction;
+
+public function actions(){
+    return [
+        'sortItem' => [
+            'class' => SortableAction::className(),
+            'activeRecordClassName' => Articles::className(),
+            'orderColumn' => 'sortOrder',
+        ],
+        // your other actions
+    ];
+}
+```
+
+* **activeRecordClassName**  (required)The ActiveRecrod class name. Use the full class name with namespace.
+* **orderColumn**  (required) The column name which store the sorting order of each records. The column should be integer.
+
+---
+
+### SortableGridView
+example:
+```php
+use richardfan\sortable\SortableGridView;
+
+<?= SortableGridView::widget([
+    'dataProvider' => $dataProvider,
+    
+    // SortableGridView Configurations
+    'sortUrl' => Url::to(['sortItem']),
+    'sortingPromptText' => 'Loading...',
+    'failText' => 'Fail to sort',
+    
+    'columns' => [
+        // Data Columns
+    ],
+]); ?>
+```
+
+* **sortUrl**  (required) The URL link to the SortableAction defined in controller's action().
+* **sortingPromptText**  (optional) The text shown in the model while the server is reordering model. You can use HTML tag in this attribute. Default to "Loading...".
+* **failText**  (optional) The text shown in alert box when sorting failed. Default to "Fail to sort".
+
+## License
+yii2-sortable-gridview is released under the MIT License. See the bundled LICENSE for details.
