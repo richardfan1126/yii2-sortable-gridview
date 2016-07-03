@@ -1,4 +1,10 @@
 # yii2-sortable-gridview
+
+[![Latest Stable Version](https://poser.pugx.org/richardfan1126/yii2-sortable-gridview/v/stable)](https://packagist.org/packages/richardfan1126/yii2-sortable-gridview)
+[![Total Downloads](https://poser.pugx.org/richardfan1126/yii2-sortable-gridview/downloads)](https://packagist.org/packages/richardfan1126/yii2-sortable-gridview)
+[![GitHub stars](https://img.shields.io/github/stars/richardfan1126/yii2-sortable-gridview.svg)](https://github.com/richardfan1126/yii2-sortable-gridview/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/richardfan1126/yii2-sortable-gridview.svg)](https://github.com/richardfan1126/yii2-sortable-gridview/issues)
+
 This is an extension of Yii2 GridView.
 
 This extension render a sortable GridView which you can drag and drop the record items from the list, and store the order in ActiveRecord.
