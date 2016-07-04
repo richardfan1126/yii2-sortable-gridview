@@ -47,13 +47,13 @@ class SortableGridView extends GridView {
                 'id' => "items[]_{$model->primaryKey}",
             ];
         };
-        
-        if(isset($this->dataProvider)){
-            $this->dataProvider->sort = false;
-        }
     }
 
     public function run(){
+        foreach($this->columns as $column){
+            $column->enableSorting = false;
+        }
+        
         parent::run();
 
         $options = [
