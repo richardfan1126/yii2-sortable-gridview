@@ -51,7 +51,8 @@ class SortableGridView extends GridView {
 
     public function run(){
         foreach($this->columns as $column){
-            $column->enableSorting = false;
+			if(property_exists($column, 'enableSorting'))
+				$column->enableSorting = false;
         }
         
         parent::run();
