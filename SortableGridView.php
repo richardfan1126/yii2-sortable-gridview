@@ -2,10 +2,13 @@
 
 namespace richardfan\sortable;
 
+use Closure;
+
 use yii\base\InvalidConfigException;
 use yii\grid\GridView;
 use yii\helpers\Json;
 use yii\grid\GridViewAsset;
+use yii\helpers\Html;
 
 class SortableGridView extends GridView {
     /**
@@ -42,11 +45,30 @@ class SortableGridView extends GridView {
         SortableGridViewAsset::register($this->view);
 
         $this->tableOptions['class'] .= ' sortable-grid-view';
-        $this->rowOptions = function ($model, $key, $index, $grid){
-            return [
-                'id' => "items[]_{$model->primaryKey}",
-            ];
-        };
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \yii\grid\GridView::renderTableRow()
+     */
+    public function renderTableRow($model, $key, $index)
+    {
+        $cells = [];
+        /* @var $column Column */
+        foreach ($this->columns as $column) {
+            $cells[] = $column->renderDataCell($model, $key, $index);
+        }
+        
+        if ($this->rowOptions instanceof Closure) {
+            $options = call_user_func($this->rowOptions, $model, $key, $index, $this);
+        } else {
+            $options = $this->rowOptions;
+        }
+        
+        $options['id'] = "items[]_{$model->primaryKey}";
+        $options['data-key'] = is_array($key) ? json_encode($key) : (string) $key;
+        
+        return Html::tag('tr', implode('', $cells), $options);
     }
 
     public function run(){
