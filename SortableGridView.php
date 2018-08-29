@@ -65,7 +65,7 @@ class SortableGridView extends GridView {
             $options = $this->rowOptions;
         }
 
-        $options['id'] = "items[]_{$model->primaryKey}";
+        // $options['id'] = "items[]_{$model->primaryKey}";
         $options['data-key'] = is_array($key) ? json_encode($key) : (string) $key;
 
         return Html::tag('tr', implode('', $cells), $options);
