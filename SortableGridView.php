@@ -2,91 +2,56 @@
 
 namespace richardfan\sortable;
 
-use Closure;
-
+use yii\base\Action;
+use yii\web\HttpException;
 use yii\base\InvalidConfigException;
-use yii\grid\GridView;
-use yii\helpers\Json;
-use yii\grid\GridViewAsset;
-use yii\helpers\Html;
 
-class SortableGridView extends GridView {
-    /**
-     * (required) The URL of related SortableAction
-     *
-     * @see \richardfan1126\sortable\SortableAction
-     * @var string
-     */
-    public $sortUrl;
+class SortableAction extends Action {
 
     /**
-     * (optional) The text shown in the model while the server is reordering model
-     * You can use HTML tag in this attribute.
+     * (required) The ActiveRecord Class name
      *
      * @var string
      */
-    public $sortingPromptText = 'Loading...';
+    public $activeRecordClassName;
 
     /**
-     * (optional) The text shown in alert box when sorting failed.
+     * (required) The attribute name where your store the sort order.
      *
      * @var string
      */
-    public $failText = 'Fail to sort';
+    public $orderColumn;
+
+    /**
+     * Start index/position default 0
+     *
+     * @var integer
+     */
+    public $startPosition = 0;
 
     public function init(){
         parent::init();
-
-        if(!isset($this->sortUrl)){
-            throw new InvalidConfigException("You must specify the sortUrl");
+        if(!isset($this->activeRecordClassName)){
+            throw new InvalidConfigException("You must specify the activeRecordClassName");
         }
 
-        GridViewAsset::register($this->view);
-        SortableGridViewAsset::register($this->view);
-
-        $this->tableOptions['class'] .= ' sortable-grid-view';
+        if(!isset($this->orderColumn)){
+            throw new InvalidConfigException("You must specify the orderColumn");
+        }
     }
-
-    /**
-     * {@inheritDoc}
-     * @see \yii\grid\GridView::renderTableRow()
-     */
-    public function renderTableRow($model, $key, $index)
-    {
-        $cells = [];
-        /* @var $column Column */
-        foreach ($this->columns as $column) {
-            $cells[] = $column->renderDataCell($model, $key, $index);
-        }
-
-        if ($this->rowOptions instanceof Closure) {
-            $options = call_user_func($this->rowOptions, $model, $key, $index, $this);
-        } else {
-            $options = $this->rowOptions;
-        }
-
-        // $options['id'] = "items[]_{$model->primaryKey}";
-        $options['data-key'] = is_array($key) ? json_encode($key) : (string) $key;
-
-        return Html::tag('tr', implode('', $cells), $options);
-    }
-
     public function run(){
-        foreach($this->columns as $column){
-			if(property_exists($column, 'enableSorting'))
-				$column->enableSorting = false;
+        if(!\Yii::$app->request->isAjax){
+            throw new HttpException(404);
         }
-        parent::run();
-
-        $options = [
-            'id' => $this->id,
-            'action' => $this->sortUrl,
-            'sortingPromptText' => $this->sortingPromptText,
-            'sortingFailText' => $this->failText,
-            'csrfTokenName' => \Yii::$app->request->csrfParam,
-            'csrfToken' => \Yii::$app->request->csrfToken,
-        ];
-        $options = Json::encode($options);
-        $this->view->registerJs("jQuery.SortableGridView($options);");
+        if (isset($_POST['items']) && is_array($_POST['items'])) {
+            $activeRecordClassName = $this->activeRecordClassName;
+            foreach ($_POST['items'] as $i=>$item) {
+                $page = $activeRecordClassName::findOne($item);
+                //$page = $activeRecordClassName::find()->where($item);
+                $page->updateAttributes([
+                    $this->orderColumn => $i + $startPosition,
+                ]);
+            }
+        }
     }
 }
