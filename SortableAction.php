@@ -7,6 +7,7 @@ use yii\web\HttpException;
 use yii\base\InvalidConfigException;
 
 class SortableAction extends Action {
+
     /**
      * (required) The ActiveRecord Class name
      *
@@ -20,6 +21,13 @@ class SortableAction extends Action {
      * @var string
      */
     public $orderColumn;
+
+    /**
+     * Start index/position default 0
+     *
+     * @var integer
+     */
+    public $startPosition = 0;
 
     public function init(){
         parent::init();
@@ -41,7 +49,7 @@ class SortableAction extends Action {
                 $page = $activeRecordClassName::findOne($item);
                 //$page = $activeRecordClassName::find()->where($item);
                 $page->updateAttributes([
-                    $this->orderColumn => $i,
+                    $this->orderColumn => $i + $this->startPosition,
                 ]);
             }
         }
