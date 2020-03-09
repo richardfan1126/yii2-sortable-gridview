@@ -35,6 +35,7 @@ public function actions(){
             'class' => SortableAction::className(),
             'activeRecordClassName' => YourActiveRecordClass::className(),
             'orderColumn' => 'name_of_field_storing_ordering',
+            'startPosition' => 1, // optional, default is 0
         ],
         // your other actions
     ];
