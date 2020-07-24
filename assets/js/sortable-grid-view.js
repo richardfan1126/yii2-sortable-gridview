@@ -16,6 +16,7 @@
 	var regex = /items\[\]\_(\d+)/;
 
 	$('#' + options.id + ' .sortable-grid-view tbody').sortable({
+		handle: '.moveItem',
 	    update : function () {
 		$('#' + options.id + '-sorting-modal').modal('show');
 		//serial = $('#' + options.id + ' .sortable-grid-view tbody').sortable('toArray', {attribute:'id'});
