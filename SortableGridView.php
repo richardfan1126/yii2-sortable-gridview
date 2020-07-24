@@ -40,7 +40,7 @@ class SortableGridView extends GridView {
      *
      * @var string
      */
-    public $moveItem = '.moveItem';
+    public $moveItem = '';
 
     public function init(){
         parent::init();
