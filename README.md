@@ -101,7 +101,7 @@ use richardfan\sortable\SortableGridView;
     'sortUrl' => Url::to(['sortItem']),
     'sortingPromptText' => 'Loading...',
     'failText' => 'Fail to sort',
-    'handle' => '.moveItem', 
+    'moveItem' => '.moveItem', 
     
     'columns' => [
         [
