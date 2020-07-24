@@ -24,7 +24,7 @@
         serial = [];
 
 
-        $('#' + options.id + ' .sortable-grid-view tbody .ui-sortable-handle').each( function() {
+        $('#' + options.id + ' .sortable-grid-view tbody.ui-sortable tr').each( function() {
             //console.log($(this).data('key'));
             serial.push($(this).data('key'));
         });
