@@ -101,8 +101,16 @@ use richardfan\sortable\SortableGridView;
     'sortUrl' => Url::to(['sortItem']),
     'sortingPromptText' => 'Loading...',
     'failText' => 'Fail to sort',
+    'moveItem' => '.moveItem', 
     
     'columns' => [
+        [
+            'content' => function(){
+                return "<span class='glyphicon glyphicon-resize-vertical'></span>";
+            },
+            'contentOptions' => ['style'=>'cursor:move;', 'class' => 'moveItem'],
+        ],
+
         // Data Columns
     ],
 ]); ?>

@@ -34,6 +34,14 @@ class SortableGridView extends GridView {
      */
     public $failText = 'Fail to sort';
 
+    /**
+     * (optional) Element which need to drag to start sortable.
+     * Empty if need drag by whole row.
+     *
+     * @var string
+     */
+    public $moveItem = '';
+
     public function init(){
         parent::init();
 
@@ -83,6 +91,7 @@ class SortableGridView extends GridView {
             'action' => $this->sortUrl,
             'sortingPromptText' => $this->sortingPromptText,
             'sortingFailText' => $this->failText,
+            'moveItem' => $this->moveItem,
             'csrfTokenName' => \Yii::$app->request->csrfParam,
             'csrfToken' => \Yii::$app->request->csrfToken,
         ];

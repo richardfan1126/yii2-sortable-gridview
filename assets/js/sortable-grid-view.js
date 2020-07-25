@@ -5,6 +5,7 @@
 	    action: 'sortItem',
 	    sortingPromptText: 'Loading...',
 	    sortingFailText: 'Fail to sort',
+	    moveItem: '',
 	    csrfTokenName: '',
 	    csrfToken: '',
 	};
@@ -16,13 +17,14 @@
 	var regex = /items\[\]\_(\d+)/;
 
 	$('#' + options.id + ' .sortable-grid-view tbody').sortable({
+		handle: options.moveItem,
 	    update : function () {
 		$('#' + options.id + '-sorting-modal').modal('show');
 		//serial = $('#' + options.id + ' .sortable-grid-view tbody').sortable('toArray', {attribute:'id'});
         serial = [];
 
 
-        $('#' + options.id + ' .sortable-grid-view tbody .ui-sortable-handle').each( function() {
+        $('#' + options.id + ' .sortable-grid-view tbody.ui-sortable tr').each( function() {
             //console.log($(this).data('key'));
             serial.push($(this).data('key'));
         });
